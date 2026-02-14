@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 142 47% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 142 47% 12%;
+    --primary: 142 76% 36%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 142 32% 93%;
+    --secondary-foreground: 142 47% 12%;
+    --muted: 142 32% 95%;
+    --muted-foreground: 142 20% 40%;
+    --accent: 142 76% 36%;
+    --accent-foreground: 0 0% 100%;
+    --border: 142 20% 88%;
+    --input: 142 20% 88%;
+    --ring: 142 76% 36%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 142 45% 8%;
+    --foreground: 142 10% 95%;
+    --card: 142 35% 12%;
+    --card-foreground: 142 10% 95%;
+    --primary: 142 70% 45%;
+    --primary-foreground: 142 47% 12%;
+    --secondary: 142 30% 18%;
+    --secondary-foreground: 142 10% 95%;
+    --muted: 142 30% 20%;
+    --muted-foreground: 142 10% 65%;
+    --accent: 142 70% 45%;
+    --accent-foreground: 142 47% 12%;
+    --border: 142 30% 22%;
+    --input: 142 30% 22%;
+    --ring: 142 70% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer components {
+  .card-gradient {
+    @apply bg-gradient-to-br from-white to-mavuno-50 dark:from-mavuno-950 dark:to-mavuno-900;
+  }
+  
+  .glass-effect {
+    @apply bg-white/80 dark:bg-mavuno-950/80 backdrop-blur-lg;
+  }
+
+  .skeleton {
+    @apply animate-pulse bg-gray-200 rounded-md;
+  }
+
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-200;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-mavuno-600 dark:bg-mavuno-500 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-mavuno-700 dark:bg-mavuno-400;
+}
+
+/* Loading States */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.loading-shimmer {
+  animation: shimmer 2s infinite linear;
+  background: linear-gradient(to right, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
+  background-size: 1000px 100%;
+}
