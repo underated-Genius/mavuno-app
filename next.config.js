@@ -12,10 +12,14 @@ const nextConfig = {
       },
     ],
   },
-  // Optimize for low-bandwidth environments
   compress: true,
   poweredByHeader: false,
   reactStrictMode: true,
+  swcMinify: true,
+  // Force webpack instead of turbopack
+  webpack: (config) => {
+    return config;
+  },
 }
 
 module.exports = nextConfig
