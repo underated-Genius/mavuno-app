@@ -1,5 +1,3 @@
-"use client";
-"use client";
 'use client';
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
@@ -19,6 +17,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // If Firebase auth is not configured, just set loading to false
+    if (!auth) {
+      console.log('ℹ️ Firebase Auth not configured - running in demo mode');
+      setLoading(false);
+      return;
+    }
+
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser: FirebaseUser | null) => {
       if (firebaseUser) {
         setUser({
@@ -37,6 +42,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const signInWithGoogle = async () => {
+    if (!auth || !googleProvider) {
+      alert('Firebase authentication is not configured.\n\nThe app is running in demo mode. All features work except Google Sign-In.\n\nTo enable authentication, see SETUP_GUIDE.md');
+      throw new Error('Firebase not configured');
+    }
+    
     try {
       await signInWithPopup(auth, googleProvider);
     } catch (error) {
@@ -46,6 +56,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const signOut = async () => {
+    if (!auth) return;
+    
     try {
       await firebaseSignOut(auth);
     } catch (error) {
